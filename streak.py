@@ -1,9 +1,18 @@
+"""
+Usage:
+
+`python streak.py [streak_amount]`
+Default streak_amount is 4
+"""
+
 import requests
 import re
+import sys
 from bs4 import BeautifulSoup
 
 url = "http://www.sportsnet.ca/hockey/nhl/standings/"
-min_streak = 4
+
+min_streak = int(sys.argv[1]) if len(sys.argv) > 1 else 4
 
 r = requests.get(url)
 
