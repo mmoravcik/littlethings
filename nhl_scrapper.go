@@ -9,20 +9,22 @@ import (
     "time"
 )
 
+type TeamRecord struct {
+    Streak struct {
+        StreakCode   string `json:"streakCode"`
+        StreakNumber int    `json:"streakNumber"`
+        StreakType   string `json:"streakType"`
+    } `json:"streak"`
+    Team struct {
+        ID   int    `json:"id"`
+        Name string `json:"name"`
+    } `json:"team"`
+}
+
 
 type Standings struct {
 	Records   []struct {
-		TeamRecords   []struct {
-			Streak struct {
-				StreakCode   string `json:"streakCode"`
-				StreakNumber int    `json:"streakNumber"`
-				StreakType   string `json:"streakType"`
-			} `json:"streak"`
-			Team struct {
-				ID   int    `json:"id"`
-				Name string `json:"name"`
-			} `json:"team"`
-		} `json:"teamRecords"`
+		TeamRecords  []TeamRecord
 	} `json:"records"`
 }
 
@@ -116,13 +118,24 @@ func main() {
         log.Fatal(jsonStandingsErr)
     }
 
+    var streak_teams []TeamRecord
+
     for _, division := range standings.Records {
-        for _, teams := range division.TeamRecords {
-            fmt.Println(teams.Team.Name)
-            fmt.Println(teams.Streak.StreakNumber)
-            fmt.Println(teams.Streak.StreakNumber == MINIMAL_STREAK)
-            fmt.Println("\n")
+        for _, team_record := range division.TeamRecords {
+            //fmt.Println(team_record.Team.Name)
+            //fmt.Println(team_record.Streak.StreakNumber)
+            if team_record.Streak.StreakNumber == MINIMAL_STREAK {
+                streak_teams = append(streak_teams, team_record)
+            }
+
+
+            //fmt.Println(team_record.Streak.StreakNumber == MINIMAL_STREAK)
+            //fmt.Println("\n")
         }
+    }
+
+    for _, team_record := range streak_teams {
+        fmt.Println(team_record)
     }
 
     var schedule_body = getBodyFromJson(schedule_url)
@@ -137,13 +150,13 @@ func main() {
     for _, date := range schedule.Dates {
 
         for _, game := range(date.Games) {
-            var s = fmt.Sprintf(
+            var _ = fmt.Sprintf(
                 "%s vs %s on %s",
                 game.Teams.Away.Team.Abbreviation,
                 game.Teams.Home.Team.Abbreviation,
                 date.Date,
             )
-            fmt.Println(s)
+            //fmt.Println(s)
         }
     }
 }
