@@ -23,9 +23,9 @@ type TeamRecord struct {
 
 
 type Standings struct {
-	Records   []struct {
-		TeamRecords  []TeamRecord
-	} `json:"records"`
+    Records   []struct {
+        TeamRecords  []TeamRecord
+    } `json:"records"`
 }
 
 
@@ -57,18 +57,18 @@ type Game struct {
 
 type Schedule struct {
 	Dates     []struct {
-		Date   string        `json:"date"`
-		Games  []Game
-		Matches      []interface{} `json:"matches"`
-		TotalEvents  int           `json:"totalEvents"`
+        Date   string        `json:"date"`
+        Games  []Game
+        Matches      []interface{} `json:"matches"`
+        TotalEvents  int           `json:"totalEvents"`
 		TotalGames   int           `json:"totalGames"`
-		TotalItems   int           `json:"totalItems"`
-		TotalMatches int           `json:"totalMatches"`
-	} `json:"dates"`
-	TotalEvents  int `json:"totalEvents"`
-	TotalGames   int `json:"totalGames"`
-	TotalItems   int `json:"totalItems"`
-	TotalMatches int `json:"totalMatches"`
+        TotalItems   int           `json:"totalItems"`
+        TotalMatches int           `json:"totalMatches"`
+    } `json:"dates"`
+    TotalEvents  int `json:"totalEvents"`
+    TotalGames   int `json:"totalGames"`
+    TotalItems   int `json:"totalItems"`
+    TotalMatches int `json:"totalMatches"`
 }
 
 
